@@ -1,0 +1,21 @@
+image: node:latest
+
+pages:
+  stage: deploy
+  before_script:
+    # Instala o git-lfs e baixa os arquivos reais de mídia
+    - apt-get update && apt-get install -y git-lfs
+    - git lfs install
+    - git lfs pull
+  script:
+    - mkdir -p public
+    - cp index.html public/
+    - cp main.js public/
+    - cp gameConfig.js public/
+    - cp -r scenes public/
+    - cp -r assets public/
+  artifacts:
+    paths:
+      - public
+  only:
+    - main
